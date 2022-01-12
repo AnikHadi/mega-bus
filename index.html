@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/H-logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main id class="main-content container">
+
+        <div class="booking-content">
+            <h1>Mega City Bus</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+
+
+        <div id="booking-form" class="booking-form">
+            <h3>Explore By Bus</h3>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                </div>
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="inputs">
+                <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="first-class-count" class="inp-style inp-width" type="number" value="0"> 
+                </div>
+                <div class="plus-minus-btn">
+                    <p><span onclick="ticketHandilar(true, 'first')">+</span> <span onclick="ticketHandilar(false, 'first')">-</span></p>
+                </div>
+            </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100)</label>
+                        <input id="economy-class-count" class="inp-style inp-width" type="number" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <p> <span onclick="ticketHandilar(true, 'economy')">+</span> <span onclick="ticketHandilar(false, 'economy')">-</span> </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="total-amount">$ 0</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax-amount">$ 0</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p>$ <span id="grand-amount">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <button id="order-btn" class="btn-style">Book Now</button>
+        </div>
+
+        <div id="order-complete-msg">
+            <h1>You have successfully completed your order.</h1>
+        </div>
+        <div id="order-error-msg">
+            <h1>First select your ticket.</h1>
+        </div>
+    </main>
+
+
+    <!--Thank You-->
+    <script>
+
+        function ticketHandilar(isIncrease, whichClass) {
+            const firstClassCount = stringToNumber(whichClass);
+
+            let ticketCount = firstClassCount;
+            if(isIncrease == true ) {
+                ticketCount = ticketCount + 1;
+            }
+            if(isIncrease == false && ticketCount > 0) {
+                ticketCount = ticketCount - 1;
+            }
+            document.getElementById(whichClass + '-class-count').value = ticketCount;
+
+            amountCalculate()
+        }
+
+        function amountCalculate() {
+            const firstClassCount =  stringToNumber('first');
+            const economyClassCount = stringToNumber('economy');
+
+            const totalAmount = firstClassCount * 150 + economyClassCount * 100;
+            document.getElementById('total-amount').innerText = '$ ' + totalAmount;
+
+            const taxAmount = totalAmount * 0.1;
+            document.getElementById('tax-amount').innerText = '$ ' + taxAmount;
+
+            const grandAmount = totalAmount + taxAmount;
+            document.getElementById('grand-amount').innerText =  grandAmount;
+        }
+
+        function stringToNumber(whichClass) {
+            const number = parseFloat(document.getElementById(whichClass + '-class-count').value);
+            return number;
+        }
+
+        document.getElementById('order-btn').addEventListener('click', function() {
+            document.getElementById('booking-form').style.display = "none";
+            const grandAmount = parseFloat(document.getElementById('grand-amount').innerText);
+            if (grandAmount > 0) {
+                document.getElementById('order-complete-msg').style.display = "block";
+            }
+            if(grandAmount == 0) {
+                document.getElementById('order-error-msg').style.display = "block";
+            }
+        })
+    </script>
+</body>
+
+</html>
