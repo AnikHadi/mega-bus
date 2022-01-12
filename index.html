@@ -12,6 +12,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/H-logo.png" type="image/x-icon">
+    <script src="javaScript.js"></script>
 </head>
 
 <body>
@@ -109,7 +110,7 @@
                     </div>
                 </div>
             </div>
-            <button id="order-btn" class="btn-style">Book Now</button>
+            <button onclick="orderNow()" id="order-btn" class="btn-style">Book Now</button>
         </div>
 
         <div id="order-complete-msg">
@@ -122,7 +123,7 @@
 
 
     <!--Thank You-->
-    <script>
+    <!-- <script>
 
         function ticketHandilar(isIncrease, whichClass) {
             const firstClassCount = stringToNumber(whichClass);
@@ -168,7 +169,7 @@
                 document.getElementById('order-error-msg').style.display = "block";
             }
         })
-    </script>
+    </script> -->
 </body>
 
 </html>
